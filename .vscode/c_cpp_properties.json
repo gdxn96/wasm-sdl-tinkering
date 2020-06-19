@@ -3,7 +3,8 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/Users/georgedixon/Desktop/git/personal-git/vcpkg/installed/x64-osx/include"
             ],
             "defines": [],
             "macFrameworkPath": [
