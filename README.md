@@ -5,3 +5,4 @@ Quick repo to play with WASM & SDL2
 `emcc main.cpp -s WASM=1 -s USE_SDL=2 -O3 -o index.js`
 
 - To run with C++
+

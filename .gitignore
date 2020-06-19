@@ -1,2 +1,10 @@
 *.js
 *.wasm
+
+
+# ./build/CMakeCache.txt
+# ./build/CMakeFiles/**
+# ./build/Testing/**
+# ./build/cmake_install.cmake
+# ./build/.cmake/**
+./build/wasm-sdl-tinkering
