@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/georgedixon/Desktop/git/personal-git/wasm-sdl-tinkering/build",
+  "command": "/usr/bin/clang++    -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -o CMakeFiles/wasm-sdl-tinkering.dir/main.cpp.o -c /Users/georgedixon/Desktop/git/personal-git/wasm-sdl-tinkering/main.cpp",
+  "file": "/Users/georgedixon/Desktop/git/personal-git/wasm-sdl-tinkering/main.cpp"
+}
+]
