@@ -11,6 +11,7 @@ struct context
 {
     SDL_Renderer *renderer;
     int iteration;
+    SDL_Texture *texture;
 };
 
 void loop(void *arg)
@@ -18,21 +19,9 @@ void loop(void *arg)
     context *ctx = static_cast<context*>(arg);
     SDL_Renderer *renderer = ctx->renderer;
 
-    // example: draw a moving rectangle
-
-    // red background
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
     SDL_RenderClear(renderer);
-
-    // moving blue rectangle
-    SDL_Rect r;
-    r.x = ctx->iteration % 255;
-    r.y = 50;
-    r.w = 50;
-    r.h = 50;
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255 );
-    SDL_RenderFillRect(renderer, &r );
-
+    SDL_RenderCopy(renderer, ctx->texture, NULL, NULL);
     SDL_RenderPresent(renderer);
 
     ctx->iteration++;
@@ -56,6 +45,20 @@ int main()
     ctx.renderer = renderer;
     ctx.iteration = 0;
     SDL_Event event;
+
+    SDL_Surface *surface;
+    SDL_Texture *texture;
+    surface = SDL_LoadBMP("assets/sample.bmp");
+    if (!surface) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
+        return 3;
+    }
+    ctx.texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!texture) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
+        return 3;
+    }
+    SDL_FreeSurface(surface);
 
     const int simulate_infinite_loop = 1; // call the function repeatedly
     const int fps = -1; // call the function as fast as the browser wants to render (typically 60fps)

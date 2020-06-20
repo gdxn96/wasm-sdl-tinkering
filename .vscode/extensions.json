@@ -7,7 +7,8 @@
 		"ms-vscode.cpptools",
 		"twxs.cmake",
 		"ms-vscode.cmake-tools",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"dtsvet.vscode-wasm"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
