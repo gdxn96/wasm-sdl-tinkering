@@ -3,8 +3,6 @@
 
 
 build/**
-!build/Makefile
-!build/compile_commands.json
 
 dist/**
 !dist/.keep

@@ -1,9 +1,10 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
+#else
+#include <SDL2/SDL_image.h>
 #endif
 
-#include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
 #include <cstdlib>
 #include <thread>
