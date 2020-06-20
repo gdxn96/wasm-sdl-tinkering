@@ -1,0 +1,11 @@
+*.js
+*.wasm
+
+
+build/**
+!build/Makefile
+!build/compile_commands.json
+
+dist/**
+!dist/.keep
+!dist/index.html
