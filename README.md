@@ -19,3 +19,6 @@ Set env to wherever you installed VCPKG
 Alternatively use `example.settings.json` to specify vcpkg cmake
 
 use suggested vs code extensions to run via cmake
+
+To clear out temporary files locally run this, (sometimes required if messing w/new libs)
+`git clean -fdX -e \!.vscode -e \!.vscode/**`
