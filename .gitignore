@@ -9,3 +9,6 @@ build/**
 dist/**
 !dist/.keep
 !dist/index.html
+
+.vscode/settings.json
+**.DS_Store

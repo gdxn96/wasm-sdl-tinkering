@@ -1,0 +1,5 @@
+{
+  "cmake.configureArgs": [
+    "-DCMAKE_TOOLCHAIN_FILE=/Users/georgedixon/Desktop/git/personal-git/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  ]
+}

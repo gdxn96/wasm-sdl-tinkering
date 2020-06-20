@@ -3,6 +3,7 @@
 #include <emscripten.h>
 #endif
 
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
 #include <cstdlib>
 #include <thread>
