@@ -3,7 +3,7 @@ Quick repo to play with WASM & SDL2
 
 To compile with emscripten, (install it here https://emscripten.org/docs/getting_started/index.html), then run this
 
-`emcc main.cpp -s WASM=1 -s USE_SDL=2 -O3 -o dist/index.js --preload-file assets/sample.bmp`
+`./compile_emscripten.sh`
 
 To run with C++
 
@@ -11,10 +11,7 @@ install vcpkg via github
 
 `./vcpkg integrate install`
 
-`./vcpkg install sdl2-image`
-
-`./vcpkg install sdl2`
-
+`./vcpkg install sdl2 sdl2-image`
 
 Set env to wherever you installed VCPKG
 
@@ -26,4 +23,4 @@ use suggested vs code extensions to run via cmake (Shift+CMD+P "Cmake: Configure
 
 To clear out temporary files locally run this, (sometimes required if messing w/new libs)
 
-`git clean -fdX -e \!.vscode -e \!.vscode/**`
+`./cleanup.sh`
