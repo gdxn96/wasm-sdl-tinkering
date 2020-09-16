@@ -1,10 +1,9 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
-#else
-#include <SDL2/SDL_image.h>
 #endif
 
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
 #include <cstdlib>
 #include <thread>
@@ -50,7 +49,7 @@ int main()
 
     SDL_Surface *surface;
     SDL_Texture *texture;
-    surface = SDL_LoadBMP("assets/sample.bmp");
+    surface = IMG_Load("assets/dri.png");
     if (!surface) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
         return 3;
