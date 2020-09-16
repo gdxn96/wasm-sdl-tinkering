@@ -50,6 +50,14 @@ int main()
     SDL_Surface *surface;
     SDL_Texture *texture;
     surface = IMG_Load("assets/dri.png");
+
+    int flags = IMG_INIT_PNG;
+    int initted = IMG_Init(flags);
+    if((initted & flags) != flags) {
+        printf("IMG_Init: Failed to init required png support!\n");
+        printf("IMG_Init: %s\n", IMG_GetError());
+        // handle error
+    }
     if (!surface) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
         return 3;
