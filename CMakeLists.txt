@@ -10,4 +10,4 @@ find_package(SDL2 REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main SDL2::SDL2_image)
-
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
