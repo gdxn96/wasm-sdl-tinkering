@@ -5,24 +5,22 @@
 
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
-#include <thread>
 
 struct context
 {
     SDL_Renderer *renderer;
-    int iteration;
     SDL_Texture *texture;
+    int iteration;
 };
 
 void loop(void *arg)
 {
     context *ctx = static_cast<context*>(arg);
-    SDL_Renderer *renderer = ctx->renderer;
 
-    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, ctx->texture, NULL, NULL);
-    SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(ctx->renderer, 0x00, 0x00, 0x00, 0x00);
+    SDL_RenderClear(ctx->renderer);
+    SDL_RenderCopy(ctx->renderer, ctx->texture, NULL, NULL);
+    SDL_RenderPresent(ctx->renderer);
 
     ctx->iteration++;
 }
@@ -47,7 +45,6 @@ int main()
     SDL_Event event;
 
     SDL_Surface *surface;
-    SDL_Texture *texture;
     surface = IMG_Load("assets/dri.png");
 
     int flags = IMG_INIT_PNG;
@@ -62,7 +59,7 @@ int main()
         return 3;
     }
     ctx.texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (!texture) {
+    if (!ctx.texture) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
         return 3;
     }
