@@ -5,6 +5,8 @@
 
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
+#include "Game.h"
+#include <iostream>
 
 struct context
 {
@@ -69,6 +71,7 @@ void loop(void *arg)
 
 int main()
 {
+	std::cout << Game() << std::endl;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());

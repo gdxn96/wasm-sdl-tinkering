@@ -5,7 +5,12 @@ if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     file(TO_CMAKE_PATH "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CMAKE_TOOLCHAIN_FILE)
 endif()
 
-add_executable(${CMAKE_PROJECT_NAME} main.cpp)
+file(GLOB app_src
+    "*.h"
+    "*.cpp"
+)
+
+add_executable(${CMAKE_PROJECT_NAME} ${app_src})
 find_package(SDL2 REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
 
