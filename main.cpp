@@ -5,12 +5,13 @@
 
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
-#include "Game.h"
+#include "Game.hpp"
 #include <iostream>
 
 struct context
 {
 	SDL_Renderer *renderer;
+	Game *game;
 	SDL_Texture *texture;
 	SDL_Window *window;
 	SDL_Event event;
@@ -59,6 +60,7 @@ void processInput(context *ctx)
 void loop(void *arg)
 {
 	context *ctx = static_cast<context *>(arg);
+	ctx->game->Loop();
 	processInput(ctx);
 
 	SDL_SetRenderDrawColor(ctx->renderer, 255, 255, 255, 255);
@@ -71,13 +73,14 @@ void loop(void *arg)
 
 int main()
 {
-	std::cout << Game() << std::endl;
+	Game game = Game();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());
 		return 3;
 	}
 	context ctx;
+	ctx.game = &game;
 
 	if (SDL_CreateWindowAndRenderer(1280, 720, 0, &ctx.window, &ctx.renderer))
 	{

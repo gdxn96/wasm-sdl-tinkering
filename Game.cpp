@@ -1,6 +1,14 @@
-#include "Game.h"
+#include "Game.hpp"
+#include <iostream>
 
-std::string Game()
+Game::Game() : m_memberInt(1)
 {
-  return "GAME";
 }
+
+void Game::Loop() const
+{
+  std::cout << m_memberInt << std::endl;
+}
+
+void Game::Exit() const {}
+void Game::doSomethingLocal() const {}
