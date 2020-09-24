@@ -24,3 +24,5 @@ use suggested vs code extensions to run via cmake (Shift+CMD+P "Cmake: Configure
 To clear out temporary files locally run this, (sometimes required if messing w/new libs)
 
 `./cleanup.sh`
+
+When adding new `.h` & `.cpp` files, ensure to go back into CMakeLists.txt, add a space + hit save. That'll auto add new files to the build.
