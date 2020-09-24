@@ -8,83 +8,119 @@
 
 struct context
 {
-    SDL_Renderer *renderer;
-    SDL_Texture *texture;
-    int iteration;
+	SDL_Renderer *renderer;
+	SDL_Texture *texture;
+	SDL_Window *window;
+	SDL_Event event;
+	bool quit = false;
+	bool fullScreen = false;
+	int iteration = 0;
 };
+
+void setFullScreen(bool fullScreen, SDL_Window* window)
+{
+	if (fullScreen)
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(window, 0);
+	}
+}
+
+void processInput(context *ctx)
+{
+	SDL_PollEvent(&ctx->event);
+	if (ctx->event.type == SDL_QUIT) {
+		ctx->quit = true;
+	}
+	if (ctx->event.type == SDL_KEYDOWN && ctx->event.key.keysym.sym == 27) {
+		ctx->quit = true;
+	}
+	if (ctx->event.type == SDL_KEYDOWN && ctx->event.key.keysym.sym == 102) {
+		ctx->fullScreen = !ctx->fullScreen;
+		setFullScreen(ctx->fullScreen, ctx->window);
+	}
+	#ifdef __EMSCRIPTEN__
+		if (ctx->quit)
+		{
+				printf("QUITTING \n");
+				emscripten_cancel_main_loop();
+		}
+	#endif
+}
 
 void loop(void *arg)
 {
-    context *ctx = static_cast<context*>(arg);
+	context *ctx = static_cast<context*>(arg);
+	processInput(ctx);
 
-    SDL_SetRenderDrawColor(ctx->renderer, 0x00, 0x00, 0x00, 0x00);
-    SDL_RenderClear(ctx->renderer);
-    SDL_RenderCopy(ctx->renderer, ctx->texture, NULL, NULL);
-    SDL_RenderPresent(ctx->renderer);
+	SDL_SetRenderDrawColor(ctx->renderer, 255, 255, 255, 255);
+	SDL_RenderClear(ctx->renderer);
+	SDL_RenderCopy(ctx->renderer, ctx->texture, NULL, NULL);
+	SDL_RenderPresent(ctx->renderer);
 
-    ctx->iteration++;
+	ctx->iteration++;
 }
 
 int main()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
-        return 3;
-    }
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
+			return 3;
+	}
+	context ctx;
 
-    if (SDL_CreateWindowAndRenderer(255, 255, 0, &window, &renderer)) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window and renderer: %s", SDL_GetError());
-        return 3;
-    }
+	if (SDL_CreateWindowAndRenderer(1280, 720, 0, &ctx.window, &ctx.renderer)) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window and renderer: %s", SDL_GetError());
+			return 3;
+	}
+	setFullScreen(ctx.fullScreen, ctx.window);
 
-    context ctx;
-    ctx.renderer = renderer;
-    ctx.iteration = 0;
-    SDL_Event event;
+	SDL_Surface *surface;
+	surface = IMG_Load("assets/dri.png");
 
-    SDL_Surface *surface;
-    surface = IMG_Load("assets/dri.png");
+	int flags = IMG_INIT_PNG;
+	int initted = IMG_Init(flags);
+	if((initted & flags) != flags) {
+			printf("IMG_Init: Failed to init required png support!\n");
+			printf("IMG_Init: %s\n", IMG_GetError());
+			// handle error
+	}
+	if (!surface) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
+			return 3;
+	}
+	ctx.texture = SDL_CreateTextureFromSurface(ctx.renderer, surface);
+	if (!ctx.texture) {
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
+			return 3;
+	}
+	SDL_FreeSurface(surface);
 
-    int flags = IMG_INIT_PNG;
-    int initted = IMG_Init(flags);
-    if((initted & flags) != flags) {
-        printf("IMG_Init: Failed to init required png support!\n");
-        printf("IMG_Init: %s\n", IMG_GetError());
-        // handle error
-    }
-    if (!surface) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
-        return 3;
-    }
-    ctx.texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (!ctx.texture) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
-        return 3;
-    }
-    SDL_FreeSurface(surface);
+	const int simulate_infinite_loop = 1; // call the function repeatedly
+	const int fps = -1; // call the function as fast as the browser wants to render (typically 60fps)
 
-    const int simulate_infinite_loop = 1; // call the function repeatedly
-    const int fps = -1; // call the function as fast as the browser wants to render (typically 60fps)
+	#ifdef __EMSCRIPTEN__
+		emscripten_set_main_loop_arg(loop, &ctx, fps, simulate_infinite_loop);
+	#else
+		while (1)
+		{
+			loop(&ctx);
+			// Delay to keep frame rate constant (using SDL).
+			SDL_Delay(20);
+			if (ctx.quit)
+			{
+				break;
+			}
+		}
+	#endif
 
-    #ifdef __EMSCRIPTEN__
-      emscripten_set_main_loop_arg(loop, &ctx, fps, simulate_infinite_loop);
-    #else
-      while (1) {
-        SDL_PollEvent(&event);
-        if (event.type == SDL_QUIT) {
-            break;
-        }
-        loop(&ctx);
-        // Delay to keep frame rate constant (using SDL).
-        SDL_Delay(20);
-      }
-    #endif
+	SDL_DestroyRenderer(ctx.renderer);
+	SDL_DestroyWindow(ctx.window);
+	SDL_Quit();
+	printf("EXIT \n");
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
