@@ -29,3 +29,23 @@ To clear out temporary files locally run this, (sometimes required if messing w/
 When adding new `.h` & `.cpp` files, ensure to go back into CMakeLists.txt, add a space + hit save. That'll auto add new files to the build.
 
 When setting up environment for first time, please download suggested VSCode plugins, and ensure you've setup this one `jbenden.c-cpp-flylint` (including installing system deps) and have `config.formatOnSave` equal to true. This ensures auto-linter stays working
+
+Goal
+--
+Build a game sandbox application that cross-compiles to WASM, MacOS, & Linux Desktop
+
+TODO
+--
+* Port some generic components I built in college to be WASM-compatible
+  * Generic Asset Loading
+  * Audio
+  * 2D Animation
+  * Controller + Keyboard input
+* Get Fullscreen properly working in browser (kinda works but iffy rn)
+* Split Code into Framework v Implementation
+  * I want a monolithic application that can hot-load / unload new scenes 1 by 1
+  * Each scene will start as an empty sandbox app, with access to common framework components. Each scene will be used to spike new ideas/libraries/gameplay prototypes etc.
+  * Each scene will be loadable via an IMGUI ui scene picker
+* Build a CD pipeline for repo
+  * auto compile and deploy the monolithic sandbox application to an S3 bucket (behind a CDN) on every push to master
+  *  Make accessible to a domain so I can access it easily for demo purposes.
