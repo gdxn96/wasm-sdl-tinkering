@@ -17,6 +17,7 @@ jobs:
         run: cmake -E make_directory ${{runner.workspace}}/build
 
       - name: Install System Dependancies
+        working-directory: ${{runner.workspace}}/../
         run: |
           git clone https://github.com/microsoft/vcpkg
           cd vcpkg
@@ -28,14 +29,14 @@ jobs:
       - name: Configure CMake
         shell: bash
         working-directory: ${{runner.workspace}}/build
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=${{ runner.workspace }}/../vcpkg/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
 
-      - name: Build Emscripten
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: ./compile_emscripten.sh
+      # - name: Build Emscripten
+      #   working-directory: ${{runner.workspace}}/build
+      #   shell: bash
+      #   run: ./compile_emscripten.sh
