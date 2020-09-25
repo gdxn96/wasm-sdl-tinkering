@@ -23,4 +23,5 @@ jobs:
         working-directory: ${{runner.workspace}}/../emsdk/
         run: |
           source ./emsdk_env.sh
-          ${GITHUB_WORKSPACE}/compile_emscripten.sh
+          cd ${GITHUB_WORKSPACE}
+          ./compile_emscripten.sh
