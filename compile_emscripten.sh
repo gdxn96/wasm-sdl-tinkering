@@ -1,1 +1,1 @@
-emcc *.cpp -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s WASM=1 -s SDL2_IMAGE_FORMATS='["png", "jpg"]' -O3 -o dist/index.js --preload-file assets
+emcc source/*.cpp -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s WASM=1 -s SDL2_IMAGE_FORMATS='["png", "jpg"]' -O3 -o dist/index.js --preload-file assets

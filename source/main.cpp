@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include "Game.hpp"
 #include <iostream>
+#include "Engine/assets/ImageAsset.hpp"
 
 struct context
 {
@@ -65,7 +66,7 @@ void loop(void *arg)
 
 	SDL_SetRenderDrawColor(ctx->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(ctx->renderer);
-	SDL_RenderCopy(ctx->renderer, ctx->texture, NULL, NULL);
+	SDL_RenderCopy(ctx->renderer, SINGLETON(AssetLoader)->findAssetByKey<SDL_Texture>("mario"), NULL, NULL);
 	SDL_RenderPresent(ctx->renderer);
 
 	ctx->iteration++;
@@ -74,6 +75,7 @@ void loop(void *arg)
 int main()
 {
 	Game game = Game();
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s\n", SDL_GetError());
@@ -89,28 +91,8 @@ int main()
 	}
 	setFullScreen(ctx.fullScreen, ctx.window);
 
-	SDL_Surface *surface;
-	surface = IMG_Load("assets/mario.png");
-
-	int flags = IMG_INIT_PNG;
-	int initted = IMG_Init(flags);
-	if ((initted & flags) != flags)
-	{
-		printf("IMG_Init: %s\n", IMG_GetError());
-		// handle error
-	}
-	if (!surface)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s\n", SDL_GetError());
-		return 3;
-	}
-	ctx.texture = SDL_CreateTextureFromSurface(ctx.renderer, surface);
-	if (!ctx.texture)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s\n", SDL_GetError());
-		return 3;
-	}
-	SDL_FreeSurface(surface);
+	SINGLETON(AssetLoader)->addAssetToLoadQueue(new ImageAsset("mario", "assets/mario.png", ctx.renderer));
+	SINGLETON(AssetLoader)->loadAll();
 
 	const int simulate_infinite_loop = 1; // call the function repeatedly
 	const int fps = -1;										// call the function as fast as the browser wants to render (typically 60fps)
