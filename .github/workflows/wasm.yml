@@ -21,4 +21,4 @@ jobs:
 
       - name: Build Emscripten
         shell: bash
-        run: ./${GITHUB_WORKSPACE}/compile_emscripten.sh
+        run: ${GITHUB_WORKSPACE}/compile_emscripten.sh
