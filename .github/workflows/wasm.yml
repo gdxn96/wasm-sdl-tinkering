@@ -1,0 +1,25 @@
+name: Wasm
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Emscripten
+        shell: bash
+        working-directory: ${{runner.workspace}}/../
+        run: |
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        source ./emsdk_env.sh
+
+      - name: Build Emscripten
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: ./compile_emscripten.sh

@@ -35,8 +35,3 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
-
-      # - name: Build Emscripten
-      #   working-directory: ${{runner.workspace}}/build
-      #   shell: bash
-      #   run: ./compile_emscripten.sh
