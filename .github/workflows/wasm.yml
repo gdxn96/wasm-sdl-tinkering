@@ -20,6 +20,6 @@ jobs:
           source ./emsdk_env.sh
 
       - name: Build Emscripten
-        working-directory: ${{runner.workspace}}
+        working-directory: ${GITHUB_WORKSPACE}
         shell: bash
         run: ./compile_emscripten.sh
