@@ -24,7 +24,6 @@ jobs:
           ./bootstrap-vcpkg.sh
           ./vcpkg integrate install
           ./vcpkg install sdl2 sdl2-image
-          export VCPKG_ROOT=pwd
 
       - name: Configure CMake
         shell: bash

@@ -90,7 +90,7 @@ int main()
 	setFullScreen(ctx.fullScreen, ctx.window);
 
 	SDL_Surface *surface;
-	surface = IMG_Load("assets/dri.png");
+	surface = IMG_Load("assets/mario.png");
 
 	int flags = IMG_INIT_PNG;
 	int initted = IMG_Init(flags);
