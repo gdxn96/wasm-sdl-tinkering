@@ -17,8 +17,10 @@ jobs:
           cd emsdk
           ./emsdk install latest
           ./emsdk activate latest
-          source ./emsdk_env.sh
 
       - name: Build Emscripten
         shell: bash
-        run: ${GITHUB_WORKSPACE}/compile_emscripten.sh
+        working-directory: ${{runner.workspace}}/../emsdk/
+        run: |
+          source ./emsdk_env.sh
+          ${GITHUB_WORKSPACE}/compile_emscripten.sh
