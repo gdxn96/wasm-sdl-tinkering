@@ -1,4 +1,5 @@
 # wasm-sdl-tinkering
+
 Quick repo to play with WASM & SDL2
 
 To compile with emscripten, (install it here https://emscripten.org/docs/getting_started/index.html), then run this
@@ -26,3 +27,5 @@ To clear out temporary files locally run this, (sometimes required if messing w/
 `./cleanup.sh`
 
 When adding new `.h` & `.cpp` files, ensure to go back into CMakeLists.txt, add a space + hit save. That'll auto add new files to the build.
+
+When setting up environment for first time, please download suggested VSCode plugins, and ensure you've setup this one `jbenden.c-cpp-flylint` (including installing system deps) and have `config.formatOnSave` equal to true. This ensures auto-linter stays working
