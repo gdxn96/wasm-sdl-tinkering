@@ -30,7 +30,7 @@ To clear out temporary files locally run this, (sometimes required if messing w/
 
 When adding new `.h` & `.cpp` files, ensure to go back into CMakeLists.txt, add a space + hit save. That'll auto add new files to the build.
 
-When setting up environment for first time, please download suggested VSCode plugins, and ensure you've setup this one `jbenden.c-cpp-flylint` (including installing system deps) and have `config.formatOnSave` equal to true. This ensures auto-linter stays working
+When setting up environment for first time, please download suggested VSCode plugins, and ensure you've setup this one `jbenden.c-cpp-flylint` (including installing system dependencies) and have `config.formatOnSave` equal to true. This ensures auto-linter stays working
 
 ## Goal
 Build a game sandbox application that cross-compiles to WASM, MacOS, & Linux Desktop
@@ -41,7 +41,7 @@ Build a game sandbox application that cross-compiles to WASM, MacOS, & Linux Des
   * Audio
   * 2D Animation
   * Controller + Keyboard input
-* Get Fullscreen properly working in browser (kinda works but iffy rn)
+* Get Fullscreen properly working in browser (kinda works but iffy right now)
 * Split Code into Framework v Implementation
   * I want a monolithic application that can hot-load / unload new scenes 1 by 1
   * Each scene will start as an empty sandbox app, with access to common framework components. Each scene will be used to spike new ideas/libraries/gameplay prototypes etc.

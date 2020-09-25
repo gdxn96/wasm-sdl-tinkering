@@ -25,7 +25,13 @@ jobs:
       - name: Install System Dependancies
         # Some projects don't allow in-source building, so create a separate build directory
         # We'll use this as our working directory for all subsequent commands
-        run: sudo apt-get update && sudo apt-get install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev
+        run: |
+          git clone https://github.com/microsoft/vcpkg
+          cd vcpkg
+          ./bootstrap-vcpkg.sh
+          ./vcpkg integrate Install
+          ./vcpkg install sdl2 sdl2-image
+          export VCPKG_ROOT=pwd
 
       - name: Configure CMake
         # Use a bash shell so we can use the same syntax for environment variable
