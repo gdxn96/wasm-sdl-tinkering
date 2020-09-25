@@ -17,7 +17,7 @@ Set env to wherever you installed VCPKG
 
 `VCPKG_ROOT=`
 
-Alternatively use `example.settings.json` to specify vcpkg cmake
+Alternatively use `example.settings.json` to specify vcpkg cmake toolchain file (if you accidentally do this after cmake: configure, you'll have to run cleanup.sh and go again)
 
 use suggested vs code extensions to run via cmake (Shift+CMD+P "Cmake: Configure")
 
