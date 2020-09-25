@@ -7,7 +7,7 @@ Game::Game() : m_memberInt(1)
 
 void Game::Loop() const
 {
-  std::cout << m_memberInt << std::endl;
+  // std::cout << m_memberInt << std::endl;
 }
 
 void Game::Exit() const {}

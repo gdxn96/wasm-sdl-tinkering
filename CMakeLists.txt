@@ -6,7 +6,6 @@ if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 endif()
 
 file(GLOB app_src
-    "*.h"
     "*.cpp"
 )
 
