@@ -2,10 +2,12 @@
 
 Quick repo to play with WASM & SDL2
 
-To compile with emscripten, (install it here https://emscripten.org/docs/getting_started/index.html), then run this
+## Installation
+### Emscripten
+To compile with emscripten, (install it here https://emscripten.org/docs/getting_started/index.html), then run this in the root folder
 
 `./compile_emscripten.sh`
-
+### C++
 To run with C++
 
 install vcpkg via github
@@ -30,12 +32,10 @@ When adding new `.h` & `.cpp` files, ensure to go back into CMakeLists.txt, add 
 
 When setting up environment for first time, please download suggested VSCode plugins, and ensure you've setup this one `jbenden.c-cpp-flylint` (including installing system deps) and have `config.formatOnSave` equal to true. This ensures auto-linter stays working
 
-Goal
---
+## Goal
 Build a game sandbox application that cross-compiles to WASM, MacOS, & Linux Desktop
 
-TODO
---
+## TODO
 * Port some generic components I built in college to be WASM-compatible
   * Generic Asset Loading
   * Audio
