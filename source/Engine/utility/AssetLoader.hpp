@@ -85,7 +85,8 @@ public:
   std::pair<int, int> getAssetsLoaded()
   {
     std::pair<int, int> returnValue;
-    returnValue = {m_assetsLoaded, m_totalAssets};
+    returnValue.first = m_assetsLoaded;
+    returnValue.second = m_totalAssets;
 
     return returnValue;
   }

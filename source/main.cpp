@@ -16,9 +16,9 @@ struct context
 	SDL_Texture *texture;
 	SDL_Window *window;
 	SDL_Event event;
-	bool quit = false;
-	bool fullScreen = false;
-	int iteration = 0;
+	bool quit;
+	bool fullScreen;
+	int iteration;
 };
 
 void setFullScreen(bool fullScreen, SDL_Window *window)
@@ -82,6 +82,10 @@ int main()
 		return 3;
 	}
 	context ctx;
+	ctx.quit = false;
+	ctx.fullScreen = false;
+	ctx.iteration = false;
+
 	ctx.game = &game;
 
 	if (SDL_CreateWindowAndRenderer(1280, 720, 0, &ctx.window, &ctx.renderer))
